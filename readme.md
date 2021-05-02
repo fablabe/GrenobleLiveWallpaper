@@ -1,2 +1,2 @@
-ajoutez dans le bash.rc :
-bash path/main.sh &
+lancer le script en fond avec :
+```pythonw GrenobleLiveWallpaper.py```
