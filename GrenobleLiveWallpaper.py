@@ -17,6 +17,9 @@ _platform = platform.system()
 if _platform == 'Windows':
 	SPI_SETDESKWALLPAPER = 20
 	
+	MessageBox = ctypes.windll.user32.MessageBoxW
+	MessageBox(None, 'Grenoble Live Wallpaper is running', 'pythonw.exe', 0)
+	
 	def is_64_windows():
 		"""Find out how many bits is OS. """
 		return 'PROGRAMFILES(X86)' in os.environ
@@ -38,6 +41,8 @@ elif _platform == 'Linux':
 else:
 	print("Platform not supported.", file=sys.stderr)
 	exit()
+	
+showinfo("pythonw.exe","Grenoble Live Wallpaper is running")
 
 api_key="GdP46-rpcxB-2E6ZU-cGCg6"
 
