@@ -41,8 +41,6 @@ elif _platform == 'Linux':
 else:
 	print("Platform not supported.", file=sys.stderr)
 	exit()
-	
-showinfo("pythonw.exe","Grenoble Live Wallpaper is running")
 
 api_key="GdP46-rpcxB-2E6ZU-cGCg6"
 
