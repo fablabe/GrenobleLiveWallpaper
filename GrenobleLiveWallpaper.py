@@ -18,7 +18,7 @@ if _platform == 'Windows':
 	SPI_SETDESKWALLPAPER = 20
 	
 	MessageBox = ctypes.windll.user32.MessageBoxW
-	MessageBox(None, 'Grenoble Live Wallpaper is running', 'pythonw.exe', 0)
+	MessageBox(None, 'Grenoble Live Wallpaper started. (OK to continue)', 'pythonw.exe', 0)
 	
 	def is_64_windows():
 		"""Find out how many bits is OS. """
