@@ -1,2 +1,1 @@
-lancer le script en fond avec :
-```pythonw GrenobleLiveWallpaper.py```
+just run ```python GrenobleLiveWallpaper.py```
