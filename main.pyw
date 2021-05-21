@@ -12,7 +12,7 @@ import time
 SLEEP_TIME = 60
 
 
-sys.stdout = open("logfile.out","w+")
+sys.stdout = open("logfile.out","a")
 sys.stderr = sys.stdout
 
 def print_datetime():
