@@ -15,8 +15,8 @@ SLEEP_TIME = 60
 sys.stdout = open("logfile.out","a")
 sys.stderr = sys.stdout
 
-def print_datetime():
-	print(datetime.now().strftime("%Y-%m-%d %H:%M:%S -- "), end="")
+def printlog(*args):
+	print(datetime.now().strftime("%Y-%m-%d %H:%M:%S -- "), *args)
 
 current_img_name = None
 
@@ -29,8 +29,7 @@ if _platform == 'Windows':
 	
 	# MessageBox = ctypes.windll.user32.MessageBoxW
 	# MessageBox(None, 'Grenoble Live Wallpaper started. (OK to continue)', 'pythonw.exe', 0)
-	print_datetime()
-	print("Grenoble Live Wallpaper started")
+	printlog("Grenoble Live Wallpaper started")
 	
 	def is_64_windows():
 		"""Find out how many bits is OS. """
@@ -45,15 +44,13 @@ if _platform == 'Windows':
 		sys_parameters_info = get_sys_parameters_info()
 		r = sys_parameters_info(SPI_SETDESKWALLPAPER, 0, wallpaper_path, 3)
 		if not r:           # When the SPI_SETDESKWALLPAPER flag is used, SystemParametersInfo returns TRUE unless there is an error (like when the specified file doesn't exist).
-			print_datetime()
-			print(ctypes.WinError())
+			printlog(ctypes.WinError())
 			
 elif _platform == 'Linux':
 	def change_wallpaper(wallpaper_path):
 		os.system("feh --bg-fill --no-xinerama bg.jpg")
 else:
-	print_datetime()
-	print("Platform not supported.")
+	printlog("Platform not supported.")
 	exit()
 
 api_key="GdP46-rpcxB-2E6ZU-cGCg6"
@@ -69,8 +66,7 @@ while True:
 
 	rJSON = json.loads(r.text)
 	if len(rJSON["medias"])>0:
-		print_datetime()
-		print("Downloading", rJSON["medias"][-1]["src"])
+		printlog("Downloading", rJSON["medias"][-1]["src"])
 		
 		img_name = rJSON["medias"][-1]["src"].split('/')[-1]
 		if img_name != current_img_name:
@@ -80,8 +76,7 @@ while True:
 					os.remove('bg.jpg')
 				fname = wget.download(rJSON["medias"][-1]["src"], 'bg.jpg', bar=None)
 			except :
-				print_datetime()
-				print("Download failed. URL =", rJSON["medias"][-1]["src"])
+				printlog("Download failed. URL =", rJSON["medias"][-1]["src"])
 				time.sleep(SLEEP_TIME)
 				continue
 	#		if os.path.exists('bg.jpg'):
@@ -90,8 +85,7 @@ while True:
 			
 			change_wallpaper(os.path.abspath("bg.jpg"))
 	else:
-		print_datetime()
-		print("Error fetching URL.")
+		printlog("Error fetching URL.")
 	
 	time.sleep(SLEEP_TIME)
 	
