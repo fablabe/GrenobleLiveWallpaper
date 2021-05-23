@@ -68,28 +68,30 @@ while True:
 	r = requests.get(url, params=params)
 
 	rJSON = json.loads(r.text)
-	rJSON_Medias_Length = len(rJSON["medias"])
-
-	print_datetime()
-	print("Downloading", rJSON["medias"][rJSON_Medias_Length-1]["src"])
-	
-	img_name = rJSON["medias"][rJSON_Medias_Length-1]["src"].split('/')[-1]
-	if img_name != current_img_name:
-		current_img_name = img_name
-		try :
-			if os.path.exists('bg.jpg'):
-				os.remove('bg.jpg')
-			fname = wget.download(rJSON["medias"][rJSON_Medias_Length-1]["src"], 'bg.jpg', bar=None)
-		except :
-			print_datetime()
-			print("Download failed. URL =", rJSON["medias"][rJSON_Medias_Length-1]["src"])
-			time.sleep(SLEEP_TIME)
-			continue
-#		if os.path.exists('bg.jpg'):
-#			os.remove('bg.jpg')
-#		os.rename(fname, "bg.jpg")
+	if len(rJSON["medias"])>0:
+		print_datetime()
+		print("Downloading", rJSON["medias"][-1]["src"])
 		
-		change_wallpaper(os.path.abspath("bg.jpg"))
+		img_name = rJSON["medias"][-1]["src"].split('/')[-1]
+		if img_name != current_img_name:
+			current_img_name = img_name
+			try :
+				if os.path.exists('bg.jpg'):
+					os.remove('bg.jpg')
+				fname = wget.download(rJSON["medias"][-1]["src"], 'bg.jpg', bar=None)
+			except :
+				print_datetime()
+				print("Download failed. URL =", rJSON["medias"][-1]["src"])
+				time.sleep(SLEEP_TIME)
+				continue
+	#		if os.path.exists('bg.jpg'):
+	#			os.remove('bg.jpg')
+	#		os.rename(fname, "bg.jpg")
+			
+			change_wallpaper(os.path.abspath("bg.jpg"))
+	else:
+		print_datetime()
+		print("Error fetching URL.")
 	
 	time.sleep(SLEEP_TIME)
 	
